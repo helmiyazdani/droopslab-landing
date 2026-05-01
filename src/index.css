@@ -1,0 +1,93 @@
+@import url('https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  --font-primary: 'Satoshi', 'Avenir Next', 'Segoe UI', sans-serif;
+  --font-secondary: 'Inter', 'Segoe UI', sans-serif;
+
+  font-family: var(--font-primary);
+  line-height: 1.5;
+  font-weight: 400;
+  color: var(--ink-700);
+  background:
+    radial-gradient(circle at top, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0) 32%),
+    linear-gradient(180deg, #5f5d5d 0%, #3a3939 36%, #2d2d2d 100%);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --ink-900: #161920;
+  --ink-700: #434954;
+  --mint-500: #5cc9bc;
+  --mint-700: #4a5713;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+body,
+button,
+a {
+  font-family: inherit;
+}
+
+a,
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  cursor: pointer;
+}
+
+button,
+input,
+textarea,
+select {
+  border: 0;
+}
+
+img,
+svg {
+  display: block;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+h1,
+p {
+  margin: 0;
+}
+
+h1 {
+  font-family: var(--font-primary);
+  color: var(--ink-900);
+  font-size: clamp(3.15rem, 6vw, 5.2rem);
+  line-height: 0.98;
+  letter-spacing: -0.06em;
+  font-weight: 800;
+}
+
+p {
+  font-family: var(--font-secondary);
+}
+
+@media (max-width: 680px) {
+  h1 {
+    font-size: clamp(2.5rem, 12vw, 3.7rem);
+  }
+}
