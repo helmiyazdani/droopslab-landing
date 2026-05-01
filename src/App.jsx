@@ -11,32 +11,32 @@ const artCards = [
   {
     image: group1,
     rotation: '-17deg',
-    offset: '0px',
+    x: -18.5,
   },
   {
     image: group2,
     rotation: '-10deg',
-    offset: '32px',
+    x: -11.1,
   },
   {
     image: group3,
     rotation: '-2deg',
-    offset: '68px',
+    x: -3.9,
   },
   {
     image: group4,
     rotation: '5deg',
-    offset: '104px',
+    x: 3.2,
   },
   {
     image: group5,
     rotation: '11deg',
-    offset: '140px',
+    x: 10.2,
   },
   {
     image: group6,
     rotation: '18deg',
-    offset: '176px',
+    x: 17.3,
   },
 ]
 
@@ -71,7 +71,7 @@ function App() {
                 className="art-card"
                 style={{
                   '--rotation': card.rotation,
-                  '--offset': card.offset,
+                  '--x': card.x,
                 }}
               >
                 <div className="art-card-inner">

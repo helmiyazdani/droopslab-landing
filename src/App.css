@@ -104,10 +104,8 @@
 }
 
 .card-showcase {
+  --stack-scale: 1;
   position: relative;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
   width: min(100%, 58rem);
   min-height: 17rem;
   margin: 1rem auto 2.25rem;
@@ -115,12 +113,14 @@
 }
 
 .art-card {
-  position: relative;
+  position: absolute;
+  left: 50%;
+  bottom: 0;
   width: clamp(8.8rem, 12vw, 11.2rem);
   aspect-ratio: 1 / 1;
-  margin-left: calc(var(--offset) * -1);
   border-radius: 32px;
-  transform: rotate(var(--rotation)) translateY(0);
+  transform: translateX(calc(-50% + (var(--x) * 1rem * var(--stack-scale))))
+    rotate(var(--rotation)) translateY(0);
   transform-origin: center bottom;
   box-shadow:
     0 18px 35px rgba(13, 16, 24, 0.2),
@@ -172,7 +172,8 @@
 @media (hover: hover) and (pointer: fine) {
   .art-card:hover {
     z-index: 12;
-    transform: rotate(var(--rotation)) translateY(-10px) scale(1.1);
+    transform: translateX(calc(-50% + (var(--x) * 1rem * var(--stack-scale))))
+      rotate(var(--rotation)) translateY(-10px) scale(1.1);
     box-shadow:
       0 28px 48px rgba(13, 16, 24, 0.28),
       0 12px 24px rgba(13, 16, 24, 0.16);
@@ -182,12 +183,14 @@
 @keyframes float-in {
   from {
     opacity: 0;
-    transform: rotate(var(--rotation)) translateY(18px) scale(0.96);
+    transform: translateX(calc(-50% + (var(--x) * 1rem * var(--stack-scale))))
+      rotate(var(--rotation)) translateY(18px) scale(0.96);
   }
 
   to {
     opacity: 1;
-    transform: rotate(var(--rotation)) translateY(0) scale(1);
+    transform: translateX(calc(-50% + (var(--x) * 1rem * var(--stack-scale))))
+      rotate(var(--rotation)) translateY(0) scale(1);
   }
 }
 
@@ -210,13 +213,13 @@
   }
 
   .card-showcase {
+    --stack-scale: 0.78;
     min-height: 14.75rem;
     padding-inline: 1rem;
   }
 
   .art-card {
     width: clamp(7.2rem, 18vw, 9rem);
-    margin-left: calc(var(--offset) * -0.72);
   }
 }
 
@@ -246,6 +249,7 @@
   }
 
   .card-showcase {
+    --stack-scale: 0.58;
     min-height: 11.75rem;
     margin-top: 0.8rem;
     margin-bottom: 1.8rem;
@@ -255,6 +259,5 @@
   .art-card {
     width: 5rem;
     border-radius: 32px;
-    margin-left: calc(var(--offset) * -0.48);
   }
 }
