@@ -118,6 +118,10 @@
   bottom: 0;
   width: clamp(8.8rem, 12vw, 11.2rem);
   aspect-ratio: 1 / 1;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
   border-radius: 32px;
   transform: translateX(calc(-50% + (var(--x) * 1rem * var(--stack-scale))))
     rotate(var(--rotation)) translateY(0);
@@ -169,6 +173,11 @@
   display: block;
 }
 
+.art-card:focus-visible {
+  outline: 3px solid rgba(74, 87, 19, 0.4);
+  outline-offset: 6px;
+}
+
 @media (hover: hover) and (pointer: fine) {
   .art-card:hover {
     z-index: 12;
@@ -191,6 +200,253 @@
     opacity: 1;
     transform: translateX(calc(-50% + (var(--x) * 1rem * var(--stack-scale))))
       rotate(var(--rotation)) translateY(0) scale(1);
+  }
+}
+
+.modal-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: rgba(13, 16, 24, 0.42);
+  backdrop-filter: blur(16px);
+  opacity: 0;
+  transition: opacity 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.product-modal {
+  position: relative;
+  width: min(100%, 37rem);
+  overflow: hidden;
+  border-radius: 36px;
+  background: rgba(249, 249, 252, 0.38);
+  border: 1px solid rgba(255, 255, 255, 0.34);
+  backdrop-filter: blur(26px);
+  box-shadow:
+    0 32px 80px rgba(13, 16, 24, 0.25),
+    0 10px 24px rgba(13, 16, 24, 0.1);
+  opacity: 0;
+  transform: translateY(18px) scale(0.975);
+  transition:
+    opacity 320ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 320ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.modal-backdrop.modal-open,
+.modal-backdrop.modal-opening {
+  opacity: 1;
+}
+
+.product-modal.modal-open,
+.product-modal.modal-opening {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.modal-close {
+  position: absolute;
+  top: 18px;
+  right: 18px;
+  z-index: 2;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.18);
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+}
+
+.modal-close svg,
+.modal-visit-button svg,
+.modal-media-placeholder svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-width: 2;
+}
+
+.modal-media {
+  display: flex;
+  aspect-ratio: 1 / 1;
+  align-items: center;
+  justify-content: center;
+  padding: 3rem 2rem;
+  background: var(--modal-tone);
+}
+
+.modal-media-placeholder {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.4rem;
+  height: 1.4rem;
+  border-radius: 0.42rem;
+  background: rgba(255, 255, 255, 0.34);
+  box-shadow:
+    0 8px 18px rgba(0, 0, 0, 0.12),
+    inset 0 1px 0 rgba(255, 255, 255, 0.28);
+}
+
+.modal-media-placeholder svg {
+  width: 0.9rem;
+  height: 0.9rem;
+  color: #ffffff;
+  stroke: currentColor;
+}
+
+.modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  padding: 2rem 1.8rem 1.9rem;
+  text-align: center;
+  background: rgba(255, 255, 255, 0.76);
+  backdrop-filter: blur(18px);
+}
+
+.modal-copy-block {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.modal-body h2 {
+  margin: 0;
+  color: #111318;
+  font-family: var(--font-primary);
+  font-size: clamp(2rem, 4vw, 2.65rem);
+  line-height: 1.1;
+  letter-spacing: -0.05em;
+  font-weight: 800;
+}
+
+.modal-description {
+  margin: 0;
+  color: rgba(17, 19, 24, 0.62);
+  font-size: 1.02rem;
+}
+
+.modal-product-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.85rem;
+  border-radius: 28px;
+  background: rgba(248, 248, 251, 0.88);
+  isolation: isolate;
+  text-align: left;
+}
+
+.modal-product-row::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  padding: 1.5px;
+  border-radius: inherit;
+  background: conic-gradient(
+    from 0deg,
+    rgba(57, 210, 215, 0.25),
+    rgba(57, 210, 215, 1),
+    rgba(108, 123, 255, 0.95),
+    rgba(57, 210, 215, 0.25)
+  );
+  background-size: 100% 100%;
+  animation: outline-hue-shift 3.2s linear infinite;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.modal-product-meta {
+  display: flex;
+  min-width: 0;
+  align-items: center;
+  gap: 1rem;
+}
+
+.modal-product-thumb {
+  width: 4.4rem;
+  height: 4.4rem;
+  flex: 0 0 auto;
+  border-radius: 20px;
+  object-fit: cover;
+}
+
+.modal-product-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 0.08rem;
+}
+
+.modal-product-copy strong {
+  color: #111318;
+  font-family: var(--font-primary);
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: -0.03em;
+}
+
+.modal-product-copy span {
+  color: rgba(17, 19, 24, 0.66);
+  font-size: 0.96rem;
+}
+
+.modal-visit-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-width: 6.5rem;
+  min-height: 3.5rem;
+  padding: 0.95rem 1.1rem;
+  border: 0;
+  border-radius: 16px;
+  background: #1a1a1a;
+  color: #ffffff;
+  font-family: var(--font-secondary);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.modal-visit-button svg {
+  width: 1.15rem;
+  height: 1.15rem;
+  flex: 0 0 auto;
+}
+
+@keyframes outline-hue-shift {
+  0% {
+    filter: hue-rotate(0deg) saturate(1);
+  }
+
+  50% {
+    filter: hue-rotate(40deg) saturate(1.15);
+  }
+
+  100% {
+    filter: hue-rotate(360deg) saturate(1);
   }
 }
 
@@ -221,6 +477,7 @@
   .art-card {
     width: clamp(7.2rem, 18vw, 9rem);
   }
+
 }
 
 @media (max-width: 680px) {
@@ -259,5 +516,38 @@
   .art-card {
     width: 5rem;
     border-radius: 32px;
+  }
+
+  .modal-backdrop {
+    padding: 12px;
+    align-items: flex-end;
+  }
+
+  .product-modal {
+    width: 100%;
+    border-radius: 32px;
+  }
+
+  .modal-media {
+    padding: 2rem 1.5rem;
+  }
+
+  .modal-body {
+    gap: 24px;
+    padding: 1.6rem 1.2rem 1.25rem;
+  }
+
+  .modal-description {
+    font-size: 0.96rem;
+  }
+
+  .modal-product-row {
+    flex-direction: column;
+    align-items: stretch;
+    padding: 0.85rem;
+  }
+
+  .modal-visit-button {
+    width: 100%;
   }
 }
